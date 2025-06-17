@@ -1,56 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Base application theme -->
+
+    <!-- Aplikasi Theme -->
     <style name="Theme.MelaporApp" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Primary brand color -->
+        <!-- Warna Utama -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        
-        <!-- Background colors -->
+
+        <!-- Warna Background & Permukaan -->
         <item name="android:windowBackground">@color/colorBackground</item>
         <item name="colorSurface">@color/colorSurface</item>
-        
-        <!-- Text colors -->
+        <item name="android:colorBackground">@color/colorBackground</item>
+
+        <!-- Warna Teks -->
+        <item name="android:textColor">@color/colorOnBackground</item>
         <item name="colorOnPrimary">@color/colorOnPrimary</item>
         <item name="colorOnBackground">@color/colorOnBackground</item>
         <item name="colorOnSurface">@color/colorOnSurface</item>
-        
-        <!-- Status bar -->
+
+        <!-- Status Bar -->
         <item name="android:statusBarColor">@color/colorPrimaryDark</item>
         <item name="android:windowLightStatusBar">false</item>
+
+        <!-- Komponen -->
+        <item name="buttonStyle">@style/AppButtonStyle</item>
+        <item name="textViewStyle">@style/AppTextStyle</item>
+        <item name="editTextStyle">@style/AppEditTextStyle</item>
     </style>
-    
-    <!-- Theme for AppCompat -->
-    <style name="Theme.AppCompat.Light.NoActionBar" parent="Theme.AppCompat.Light">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-    </style>
-    
-    <!-- Button Styles -->
+
+    <!-- Gaya Button -->
     <style name="AppButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:backgroundTint">@color/colorPrimary</item>
         <item name="android:textColor">@color/white</item>
-        <item name="android:background">@color/colorPrimary</item>
-        <item name="android:textSize">16sp</item>
         <item name="android:padding">12dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">16sp</item>
     </style>
-    
-    <!-- Text Styles -->
-    <style name="AppTextStyle">
+
+    <!-- Gaya EditText -->
+    <style name="AppEditTextStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:background">@color/inputFieldBg</item>
+        <item name="android:textColor">@color/inputText</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <!-- Teks Umum -->
+    <style name="AppTextStyle" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/colorOnBackground</item>
         <item name="android:textSize">14sp</item>
     </style>
-    
+
+    <!-- Teks Judul -->
     <style name="AppTextStyle.Title">
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
     </style>
-    
+
+    <!-- Teks Subjudul -->
     <style name="AppTextStyle.Subtitle">
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/gray_dark</item>
     </style>
+
 </resources>
