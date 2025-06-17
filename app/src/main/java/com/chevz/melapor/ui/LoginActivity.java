@@ -4,12 +4,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.*;
+
 import com.chevz.melapor.R;
-import com.chevz.melapor.data.local.DatabaseHelper;
+import com.chevz.melapor.utils.DatabaseHelper;
 
 public class LoginActivity extends Activity {
 
     private EditText editUsername, editPassword;
+    private Button btnLogin;
+    private TextView toRegister;
     private DatabaseHelper dbHelper;
 
     @Override
@@ -17,38 +20,40 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        editUsername = findViewById(R.id.editUsername);
-        editPassword = findViewById(R.id.editPassword);
-        Button btnLogin = findViewById(R.id.btnLogin);
-        TextView toRegister = findViewById(R.id.textToRegister);
-
         dbHelper = new DatabaseHelper(this);
 
-        btnLogin.setOnClickListener(v -> {
-            String userStr = editUsername.getText().toString().trim();
-            String passStr = editPassword.getText().toString().trim();
+        editUsername = findViewById(R.id.editUsername);
+        editPassword = findViewById(R.id.editPassword);
+        btnLogin = findViewById(R.id.btnLogin);
+        toRegister = findViewById(R.id.textToRegister);
 
-            if (userStr.isEmpty() || passStr.isEmpty()) {
-                Toast.makeText(this, "Username dan Password wajib diisi", Toast.LENGTH_SHORT).show();
+        // Aksi login
+        btnLogin.setOnClickListener(v -> {
+            String username = editUsername.getText().toString();
+            String password = editPassword.getText().toString();
+
+            if (username.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, "Isi semua data", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            boolean isValid = dbHelper.checkLogin(userStr, passStr);
+            // Cek login di SQLite
+            boolean isValid = dbHelper.checkLogin(username, password);
 
             if (isValid) {
                 Toast.makeText(this, "Login berhasil", Toast.LENGTH_SHORT).show();
-
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                intent.putExtra("nama", dbHelper.getNamaByUsername(userStr)); // mengirim nama ke MainActivity
+                Intent intent = new Intent(this, MainActivity.class);
+                intent.putExtra("username", username); // dikirim ke MainActivity
                 startActivity(intent);
                 finish();
             } else {
-                Toast.makeText(this, "Login gagal. Periksa kembali data anda", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Login gagal. Cek username dan password.", Toast.LENGTH_SHORT).show();
             }
         });
 
+        // Aksi ke halaman registrasi
         toRegister.setOnClickListener(v -> {
-            startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+            startActivity(new Intent(this, RegisterActivity.class));
         });
     }
 }
