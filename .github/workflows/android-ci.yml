@@ -33,12 +33,15 @@ jobs:
     - name: Grant execute permission to gradlew
       run: chmod +x ./gradlew
 
+    - name: Clean build
+      run: ./gradlew clean
+
     - name: Build APK Debug
       run: ./gradlew assembleDebug
 
     - name: Rename APK with version and date
       run: |
-        VERSION_NAME="1.0.0"  # Atur sesuai versi kamu
+        VERSION_NAME="1.0.0"
         DATE=$(date +'%Y%m%d')
         mv app/build/outputs/apk/debug/app-debug.apk MelaporApp-v${VERSION_NAME}-debug-${DATE}.apk
 
