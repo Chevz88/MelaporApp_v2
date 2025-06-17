@@ -29,10 +29,13 @@ public class RegisterActivity extends Activity {
                 data.put("level", "User");
 
                 ApiService.postData("register", data, new ApiService.ApiCallback() {
+                    @Override
                     public void onSuccess(String response) {
                         Toast.makeText(RegisterActivity.this, "Berhasil daftar", Toast.LENGTH_SHORT).show();
                         finish();
                     }
+                    
+                    @Override
                     public void onError(String error) {
                         Toast.makeText(RegisterActivity.this, error, Toast.LENGTH_LONG).show();
                     }
@@ -42,7 +45,7 @@ public class RegisterActivity extends Activity {
             }
         });
 
-        // ⬅️ Aksi pindah ke halaman login
+        // Aksi pindah ke halaman login
         toLogin.setOnClickListener(v -> {
             startActivity(new Intent(this, LoginActivity.class));
             finish();
