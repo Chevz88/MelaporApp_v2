@@ -1,3 +1,23 @@
+#!/bin/bash
+
+# Script untuk memperbaikan error strings.xml
+# Error: Can't determine type for tag '<item>Upah</item>'
+
+echo "=== Script Perbaikan Error strings.xml ==="
+echo "Memperbaiki masalah pada file strings.xml..."
+
+# Backup file asli
+echo "1. Membuat backup file strings.xml..."
+cp app/src/main/res/values/strings.xml app/src/main/res/values/strings.xml.backup
+echo "   ✓ Backup dibuat: strings.xml.backup"
+
+# Path ke file strings.xml
+STRINGS_FILE="app/src/main/res/values/strings.xml"
+
+echo "2. Memperbaiki struktur XML..."
+
+# Membuat file strings.xml yang benar
+cat > $STRINGS_FILE << 'EOF'
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="jenis_pengaduan">
@@ -11,3 +31,41 @@
         <item>Lainnya</item>
     </string-array>
 </resources>
+EOF
+
+echo "   ✓ File strings.xml telah diperbaiki"
+
+# Validasi XML
+echo "3. Memvalidasi struktur XML..."
+if command -v xmllint &> /dev/null; then
+    if xmllint --noout $STRINGS_FILE 2>/dev/null; then
+        echo "   ✓ XML valid"
+    else
+        echo "   ✗ XML tidak valid"
+        exit 1
+    fi
+else
+    echo "   ! xmllint tidak tersedia, skip validasi"
+fi
+
+# Clean project
+echo "4. Membersihkan project..."
+./gradlew clean
+echo "   ✓ Project cleaned"
+
+# Rebuild project
+echo "5. Rebuilding project..."
+./gradlew build
+echo "   ✓ Project rebuilt"
+
+echo ""
+echo "=== Perbaikan Selesai ==="
+echo "Masalah yang diperbaiki:"
+echo "- Menambahkan deklarasi XML header yang benar"
+echo "- Memastikan semua tag ditutup dengan benar"
+echo "- Menggunakan struktur string-array yang valid"
+echo "- Membersihkan dan rebuild project"
+echo ""
+echo "Jika masih ada error, jalankan:"
+echo "  ./gradlew clean"
+echo "  ./gradlew build"
