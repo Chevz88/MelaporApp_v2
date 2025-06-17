@@ -8,22 +8,32 @@ import android.widget.*;
 
 import com.chevz.melapor.R;
 import com.chevz.melapor.data.model.Laporan;
-import com.chevz.melapor.data.network.ApiService;
-
-import org.json.JSONObject;
+import com.chevz.melapor.utils.DatabaseHelper;
 
 public class MainActivity extends Activity {
 
     private EditText editNama, editJabatan, editPerusahaan, editKronologi;
     private Spinner spinnerJenis;
-    private TextView textFileDipilih, textWelcome;
+    private TextView textFileDipilih, textNamaUser;
     private Uri selectedFileUri;
-    private String fileUrl = "";
+    private DatabaseHelper dbHelper;
+    private String usernameIntent = "-";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Inisialisasi SQLite
+        dbHelper = new DatabaseHelper(this);
+
+        // Ambil username dari intent login
+        usernameIntent = getIntent().getStringExtra("username");
+        String namaUser = dbHelper.getNamaByUsername(usernameIntent);
+
+        // View binding
+        textNamaUser = findViewById(R.id.textNamaUser);
+        textNamaUser.setText("Login sebagai: " + namaUser);
 
         editNama = findViewById(R.id.editNama);
         editJabatan = findViewById(R.id.editJabatan);
@@ -31,59 +41,64 @@ public class MainActivity extends Activity {
         editKronologi = findViewById(R.id.editKronologi);
         spinnerJenis = findViewById(R.id.spinnerJenis);
         textFileDipilih = findViewById(R.id.textFileDipilih);
-        textWelcome = findViewById(R.id.textWelcome); // Optional TextView di layout
         Button btnPilihFile = findViewById(R.id.btnPilihFile);
         Button btnKirim = findViewById(R.id.btnKirim);
 
-        // Ambil nama user dari intent login
-        String namaUser = getIntent().getStringExtra("nama");
-        if (namaUser != null) {
-            textWelcome.setText("Selamat datang, " + namaUser);
-        }
-
-        // Pilih file
+        // Aksi pilih file
         btnPilihFile.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
             intent.setType("*/*");
             startActivityForResult(intent, 100);
         });
 
-        // Kirim laporan
+        // Aksi kirim laporan
         btnKirim.setOnClickListener(v -> {
             String nama = editNama.getText().toString();
             String jabatan = editJabatan.getText().toString();
             String perusahaan = editPerusahaan.getText().toString();
-            String kronologi = editKronologi.getText().toString();
             String jenis = spinnerJenis.getSelectedItem().toString();
+            String kronologi = editKronologi.getText().toString();
+            String fileUrl = selectedFileUri != null ? selectedFileUri.toString() : "-";
 
             if (nama.isEmpty() || jabatan.isEmpty() || perusahaan.isEmpty() || kronologi.isEmpty()) {
                 Toast.makeText(this, "Mohon lengkapi semua data", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            Laporan laporan = new Laporan();
-            laporan.nama = nama;
-            laporan.jabatan = jabatan;
-            laporan.perusahaan = perusahaan;
-            laporan.jenisPengaduan = jenis;
-            laporan.kronologi = kronologi;
-            laporan.fileUrl = fileUrl; // Bisa dikembangkan untuk upload
+            // Simpan ke SQLite
+            Laporan laporan = new Laporan(nama, jabatan, perusahaan, jenis, kronologi, fileUrl);
+            boolean saved = dbHelper.insertLaporan(laporan);
 
-            ApiService.kirimLaporan(laporan);
+            if (saved) {
+                Toast.makeText(this, "Laporan berhasil disimpan", Toast.LENGTH_SHORT).show();
+                clearForm();
+            } else {
+                Toast.makeText(this, "Gagal menyimpan laporan", Toast.LENGTH_SHORT).show();
+            }
 
-            Toast.makeText(this, "Laporan berhasil dikirim!", Toast.LENGTH_LONG).show();
+            // TODO: Sinkronisasi Google Sheet di tahap berikutnya
         });
     }
 
-    // Terima file yang dipilih
+    // Terima hasil pilih file
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 100 && resultCode == RESULT_OK && data != null) {
             selectedFileUri = data.getData();
             String fileName = selectedFileUri.getLastPathSegment();
-            fileUrl = selectedFileUri.toString(); // disimpan di string
             textFileDipilih.setText("File dipilih: " + fileName);
         }
+    }
+
+    // Reset isian form
+    private void clearForm() {
+        editNama.setText("");
+        editJabatan.setText("");
+        editPerusahaan.setText("");
+        editKronologi.setText("");
+        textFileDipilih.setText("File dipilih: -");
+        spinnerJenis.setSelection(0);
+        selectedFileUri = null;
     }
 }
