@@ -24,7 +24,7 @@ public class ApiService {
                     OutputStream os = conn.getOutputStream();
                     os.write(data.toString().getBytes("UTF-8"));
                     os.close();
-                    java.util.Scanner s = new java.util.Scanner(conn.getInputStream()).useDelimiter("\A");
+                    java.util.Scanner s = new java.util.Scanner(conn.getInputStream()).useDelimiter("\\A");
                     return s.hasNext() ? s.next() : "";
                 } catch (Exception e) {
                     return "ERROR: " + e.getMessage();
