@@ -18,19 +18,21 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
 
-        <!-- Main Activity -->
+        <!-- SplashActivity sebagai launcher -->
         <activity
-            android:name=".ui.MainActivity"
-            android:exported="true">
+            android:name=".ui.SplashActivity"
+            android:exported="true"
+            android:theme="@style/Theme.MelaporApp">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <!-- Daftar aktivitas lain -->
+        <!-- Aktivitas lainnya -->
         <activity android:name=".ui.LoginActivity" />
         <activity android:name=".ui.RegisterActivity" />
+        <activity android:name=".ui.MainActivity" />
 
     </application>
 
