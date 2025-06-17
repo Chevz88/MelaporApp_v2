@@ -1,46 +1,51 @@
 package com.chevz.melapor.ui;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.*;
 import com.chevz.melapor.R;
-import com.chevz.melapor.data.local.DatabaseHelper;
+import com.chevz.melapor.data.network.ApiService;
+import org.json.JSONObject;
 
 public class RegisterActivity extends Activity {
-
-    private EditText editUsername, editPassword, editNama;
-    private DatabaseHelper dbHelper;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        editUsername = findViewById(R.id.editUsername);
-        editPassword = findViewById(R.id.editPassword);
-        editNama     = findViewById(R.id.editNama);
+        EditText username = findViewById(R.id.editUsername);
+        EditText password = findViewById(R.id.editPassword);
+        EditText nama = findViewById(R.id.editNama);
         Button btnDaftar = findViewById(R.id.btnDaftar);
-
-        dbHelper = new DatabaseHelper(this);
+        TextView toLogin = findViewById(R.id.textToLogin);
 
         btnDaftar.setOnClickListener(v -> {
-            String username = editUsername.getText().toString().trim();
-            String password = editPassword.getText().toString().trim();
-            String nama     = editNama.getText().toString().trim();
+            try {
+                JSONObject data = new JSONObject();
+                data.put("username", username.getText().toString());
+                data.put("password", password.getText().toString());
+                data.put("nama", nama.getText().toString());
+                data.put("level", "User");
 
-            if (username.isEmpty() || password.isEmpty() || nama.isEmpty()) {
-                Toast.makeText(this, "Semua field wajib diisi", Toast.LENGTH_SHORT).show();
-                return;
+                ApiService.postData("register", data, new ApiService.ApiCallback() {
+                    public void onSuccess(String response) {
+                        Toast.makeText(RegisterActivity.this, "Berhasil daftar", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                    public void onError(String error) {
+                        Toast.makeText(RegisterActivity.this, error, Toast.LENGTH_LONG).show();
+                    }
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+        });
 
-            boolean localSaved = dbHelper.insertUser(username, password, nama, "User");
-
-            if (localSaved) {
-                Toast.makeText(this, "Berhasil daftar", Toast.LENGTH_SHORT).show();
-                finish(); // Kembali ke Login
-            } else {
-                Toast.makeText(this, "Gagal menyimpan ke database", Toast.LENGTH_LONG).show();
-            }
+        // ⬅️ Aksi pindah ke halaman login
+        toLogin.setOnClickListener(v -> {
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
         });
     }
 }
