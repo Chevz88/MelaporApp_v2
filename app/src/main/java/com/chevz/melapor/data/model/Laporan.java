@@ -4,65 +4,67 @@ public class Laporan {
     private String nama;
     private String jabatan;
     private String perusahaan;
-    private String jenisMasalah;
+    private String jenis;
     private String kronologi;
-    private String fileUri;
+    private String fileUrl;
 
-    public Laporan(String nama, String jabatan, String perusahaan, String jenisMasalah, String kronologi, String fileUri) {
+    // Constructor lengkap
+    public Laporan(String nama, String jabatan, String perusahaan, String jenis, String kronologi, String fileUrl) {
         this.nama = nama;
         this.jabatan = jabatan;
         this.perusahaan = perusahaan;
-        this.jenisMasalah = jenisMasalah;
+        this.jenis = jenis;
         this.kronologi = kronologi;
-        this.fileUri = fileUri;
+        this.fileUrl = fileUrl;
     }
 
-    // Getter & Setter
+    // Getter
     public String getNama() {
         return nama;
-    }
-
-    public void setNama(String nama) {
-        this.nama = nama;
     }
 
     public String getJabatan() {
         return jabatan;
     }
 
-    public void setJabatan(String jabatan) {
-        this.jabatan = jabatan;
-    }
-
     public String getPerusahaan() {
         return perusahaan;
     }
 
-    public void setPerusahaan(String perusahaan) {
-        this.perusahaan = perusahaan;
-    }
-
-    public String getJenisMasalah() {
-        return jenisMasalah;
-    }
-
-    public void setJenisMasalah(String jenisMasalah) {
-        this.jenisMasalah = jenisMasalah;
+    public String getJenis() {
+        return jenis;
     }
 
     public String getKronologi() {
         return kronologi;
     }
 
+    public String getFileUrl() {
+        return fileUrl;
+    }
+
+    // Setter
+    public void setNama(String nama) {
+        this.nama = nama;
+    }
+
+    public void setJabatan(String jabatan) {
+        this.jabatan = jabatan;
+    }
+
+    public void setPerusahaan(String perusahaan) {
+        this.perusahaan = perusahaan;
+    }
+
+    public void setJenis(String jenis) {
+        this.jenis = jenis;
+    }
+
     public void setKronologi(String kronologi) {
         this.kronologi = kronologi;
     }
 
-    public String getFileUri() {
-        return fileUri;
-    }
-
-    public void setFileUri(String fileUri) {
-        this.fileUri = fileUri;
+    public void setFileUrl(String fileUrl) {
+        this.fileUrl = fileUrl;
     }
 }
