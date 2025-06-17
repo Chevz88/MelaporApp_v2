@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.*;
 import android.content.Intent;
 import android.net.Uri;
+import com.chevz.melapor.R;
 
 public class MainActivity extends Activity {
 
