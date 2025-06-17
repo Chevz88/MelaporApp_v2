@@ -1,39 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Primary Colors -->
-    <color name="colorPrimary">#2196F3</color>
-    <color name="colorPrimaryDark">#1976D2</color>
-    <color name="colorAccent">#FF4081</color>
-    
-    <!-- Background Colors -->
-    <color name="colorBackground">#FFFFFF</color>
+    <color name="colorPrimary">#1976D2</color> <!-- Biru Kuat -->
+    <color name="colorPrimaryDark">#0D47A1</color>
+    <color name="colorAccent">#FF5722</color> <!-- Oranye Merah Maskulin -->
+
+    <!-- Background & Surface -->
+    <color name="colorBackground">#F3F4F6</color> <!-- Abu Soft -->
     <color name="colorSurface">#FFFFFF</color>
-    
+    <color name="colorCard">#FAFAFA</color> <!-- Untuk CardView -->
+
+    <!-- Form & Field Backgrounds -->
+    <color name="inputFieldBg">#EEEEEE</color>
+    <color name="inputBorder">#CCCCCC</color>
+    <color name="inputText">#212121</color>
+
     <!-- Text Colors -->
     <color name="colorOnPrimary">#FFFFFF</color>
-    <color name="colorOnBackground">#000000</color>
-    <color name="colorOnSurface">#000000</color>
-    
+    <color name="colorOnBackground">#212121</color>
+    <color name="colorOnSurface">#333333</color>
+
     <!-- Basic Colors -->
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="transparent">#00000000</color>
-    
-    <!-- Gray Colors -->
+
+    <!-- Grayscale -->
     <color name="gray_light">#F5F5F5</color>
     <color name="gray_medium">#9E9E9E</color>
     <color name="gray_dark">#424242</color>
-    
+
     <!-- Status Colors -->
     <color name="success">#4CAF50</color>
     <color name="warning">#FF9800</color>
-    <color name="error">#F44336</color>
-    <color name="info">#2196F3</color>
-    
-    <!-- Material Design 3 Colors -->
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
+    <color name="error">#D32F2F</color>
+    <color name="info">#1976D2</color>
+
+    <!-- Shadow & Border -->
+    <color name="divider">#DDDDDD</color>
+    <color name="shadow">#1A000000</color>
+
+    <!-- Material Design 3 -->
+    <color name="purple_200">#BB86FC</color>
+    <color name="purple_500">#6200EE</color>
+    <color name="purple_700">#3700B3</color>
+    <color name="teal_200">#03DAC5</color>
+    <color name="teal_700">#018786</color>
 </resources>
