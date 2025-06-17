@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Tema Aplikasi -->
+    <!-- Aplikasi Theme -->
     <style name="Theme.MelaporApp" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Warna Utama -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
-        <!-- Warna Latar & Permukaan -->
+        <!-- Warna Background & Permukaan -->
         <item name="android:windowBackground">@color/colorBackground</item>
-        <item name="android:colorBackground">@color/colorBackground</item>
         <item name="colorSurface">@color/colorSurface</item>
+        <item name="android:colorBackground">@color/colorBackground</item>
 
         <!-- Warna Teks -->
+        <item name="android:textColor">@color/colorOnBackground</item>
         <item name="colorOnPrimary">@color/colorOnPrimary</item>
         <item name="colorOnBackground">@color/colorOnBackground</item>
         <item name="colorOnSurface">@color/colorOnSurface</item>
@@ -22,10 +23,10 @@
         <item name="android:statusBarColor">@color/colorPrimaryDark</item>
         <item name="android:windowLightStatusBar">false</item>
 
-        <!-- Komponen Gaya -->
+        <!-- Komponen -->
         <item name="buttonStyle">@style/AppButtonStyle</item>
+        <item name="textViewStyle">@style/AppTextStyle.Base</item>
         <item name="editTextStyle">@style/AppEditTextStyle</item>
-        <item name="textViewStyle">@style/AppTextViewStyle</item>
     </style>
 
     <!-- Gaya Button -->
@@ -45,20 +46,19 @@
         <item name="android:textSize">14sp</item>
     </style>
 
-    <!-- Gaya TextView (Wajib untuk textViewStyle) -->
-    <style name="AppTextViewStyle" parent="Widget.AppCompat.TextView">
+    <!-- Base Text Style (untuk textViewStyle fix) -->
+    <style name="AppTextStyle.Base" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/colorOnBackground</item>
         <item name="android:textSize">14sp</item>
     </style>
 
-    <!-- Gaya Teks Judul -->
+    <!-- Untuk manual penggunaan, bukan default style -->
     <style name="AppTextStyle.Title">
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/black</item>
     </style>
 
-    <!-- Gaya Teks Subjudul -->
     <style name="AppTextStyle.Subtitle">
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">normal</item>
