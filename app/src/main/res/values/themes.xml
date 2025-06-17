@@ -23,10 +23,12 @@
         <item name="android:statusBarColor">@color/colorPrimaryDark</item>
         <item name="android:windowLightStatusBar">false</item>
 
-        <!-- Komponen -->
+        <!-- Komponen - FIXED: Hapus textViewStyle yang bermasalah -->
         <item name="buttonStyle">@style/AppButtonStyle</item>
-        <item name="textViewStyle">@style/AppTextStyle</item>
         <item name="editTextStyle">@style/AppEditTextStyle</item>
+        
+        <!-- Gunakan android:textViewStyle untuk compatibility yang lebih baik -->
+        <item name="android:textViewStyle">@style/AppTextStyle</item>
     </style>
 
     <!-- Gaya Button -->
@@ -46,20 +48,20 @@
         <item name="android:textSize">14sp</item>
     </style>
 
-    <!-- Gaya Teks Umum (default untuk textViewStyle) -->
+    <!-- FIXED: Rename dari AppTextStyle.Base ke AppTextStyle -->
     <style name="AppTextStyle" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/colorOnBackground</item>
         <item name="android:textSize">14sp</item>
     </style>
 
-    <!-- Gaya Teks Manual -->
-    <style name="AppTextStyle.Title">
+    <!-- Untuk manual penggunaan -->
+    <style name="AppTextStyle.Title" parent="AppTextStyle">
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/black</item>
     </style>
 
-    <style name="AppTextStyle.Subtitle">
+    <style name="AppTextStyle.Subtitle" parent="AppTextStyle">
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">@color/gray_dark</item>
