@@ -2,113 +2,92 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#121212"
-    android:padding="16dp">
+    android:background="@color/colorBackground"
+    android:padding="24dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <androidx.cardview.widget.CardView
+        <!-- Nama User -->
+        <TextView
+            android:id="@+id/textNamaUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Login sebagai: -"
+            style="@style/AppTextStyle.Subtitle"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Nama -->
+        <EditText
+            android:id="@+id/editNama"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:elevation="6dp"
-            android:padding="16dp"
-            android:backgroundTint="#1E1E1E"
-            app:cardCornerRadius="12dp">
+            android:hint="Nama Pelapor"
+            style="@style/AppEditTextStyle" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+        <!-- Jabatan -->
+        <EditText
+            android:id="@+id/editJabatan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Jabatan"
+            style="@style/AppEditTextStyle"
+            android:layout_marginTop="12dp" />
 
-                <TextView
-                    android:id="@+id/textNamaUser"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Login sebagai: -"
-                    android:textStyle="bold"
-                    android:textColor="#FFFFFF"
-                    android:textSize="16sp"
-                    android:layout_marginBottom="16dp" />
+        <!-- Perusahaan -->
+        <EditText
+            android:id="@+id/editPerusahaan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nama Perusahaan"
+            style="@style/AppEditTextStyle"
+            android:layout_marginTop="12dp" />
 
-                <EditText
-                    android:id="@+id/editNama"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Nama Pelapor"
-                    android:background="@drawable/bg_input"
-                    android:textColor="#FFFFFF"
-                    android:padding="10dp" />
+        <!-- Jenis Pengaduan -->
+        <Spinner
+            android:id="@+id/spinnerJenis"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp" />
 
-                <EditText
-                    android:id="@+id/editJabatan"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Jabatan"
-                    android:layout_marginTop="12dp"
-                    android:background="@drawable/bg_input"
-                    android:textColor="#FFFFFF"
-                    android:padding="10dp" />
+        <!-- Kronologi -->
+        <EditText
+            android:id="@+id/editKronologi"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:hint="Kronologi"
+            android:gravity="top|start"
+            android:inputType="textMultiLine"
+            style="@style/AppEditTextStyle"
+            android:layout_marginTop="12dp" />
 
-                <EditText
-                    android:id="@+id/editPerusahaan"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Nama Perusahaan"
-                    android:layout_marginTop="12dp"
-                    android:background="@drawable/bg_input"
-                    android:textColor="#FFFFFF"
-                    android:padding="10dp" />
+        <!-- Pilih File -->
+        <Button
+            android:id="@+id/btnPilihFile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="PILIH FOTO / BUKTI"
+            style="@style/AppButtonStyle"
+            android:layout_marginTop="16dp" />
 
-                <Spinner
-                    android:id="@+id/spinnerJenis"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:background="@drawable/bg_input" />
+        <!-- Teks file -->
+        <TextView
+            android:id="@+id/textFileDipilih"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="File dipilih: -"
+            style="@style/AppTextStyle"
+            android:layout_marginTop="8dp" />
 
-                <EditText
-                    android:id="@+id/editKronologi"
-                    android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:hint="Kronologi"
-                    android:gravity="top|start"
-                    android:layout_marginTop="12dp"
-                    android:background="@drawable/bg_input"
-                    android:textColor="#FFFFFF"
-                    android:padding="10dp"
-                    android:inputType="textMultiLine" />
-
-                <Button
-                    android:id="@+id/btnPilihFile"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="PILIH FOTO / BUKTI"
-                    android:layout_marginTop="16dp"
-                    android:backgroundTint="#FF5722"
-                    android:textColor="#FFFFFF" />
-
-                <TextView
-                    android:id="@+id/textFileDipilih"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="File dipilih: -"
-                    android:textColor="#AAAAAA"
-                    android:textSize="14sp"
-                    android:layout_marginTop="8dp" />
-
-                <Button
-                    android:id="@+id/btnKirim"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="KIRIM LAPORAN"
-                    android:layout_marginTop="24dp"
-                    android:backgroundTint="#1976D2"
-                    android:textColor="#FFFFFF" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        <!-- Tombol Kirim -->
+        <Button
+            android:id="@+id/btnKirim"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="KIRIM LAPORAN"
+            style="@style/AppButtonStyle"
+            android:layout_marginTop="24dp" />
     </LinearLayout>
 </ScrollView>
