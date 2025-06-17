@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="jenis_pengaduan">
+        <item>Upah Tidak Dibayar</item>
+        <item>PHK Sepihak</item>
+        <item>Jam Kerja Berlebih</item>
+        <item>Diskriminasi di Tempat Kerja</item>
+        <item>Pelecehan / Intimidasi</item>
+        <item>Kecelakaan Kerja</item>
+        <item>Jaminan Sosial Tidak Dibayar</item>
+        <item>Lainnya</item>
+    </string-array>
+</resources>
