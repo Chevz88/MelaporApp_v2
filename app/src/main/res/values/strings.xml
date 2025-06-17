@@ -1,0 +1,12 @@
+
+<resources>
+    <string name="app_name">MelaporApp</string>
+    <string-array name="jenis_pengaduan">
+        <item>Upah</item>
+        <item>PHK</item>
+        <item>Jam Kerja</item>
+        <item>Diskriminasi</item>
+        <item>Keselamatan</item>
+        <item>Lainnya</item>
+    </string-array>
+</resources>

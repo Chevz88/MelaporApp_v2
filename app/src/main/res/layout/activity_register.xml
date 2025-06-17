@@ -1,0 +1,17 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical" android:padding="24dp">
+
+    <EditText android:id="@+id/editUsername" android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:hint="Username" />
+
+    <EditText android:id="@+id/editPassword" android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:hint="Password" android:inputType="textPassword"
+        android:layout_marginTop="12dp" />
+
+    <EditText android:id="@+id/editNama" android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:hint="Nama Lengkap" android:layout_marginTop="12dp" />
+
+    <Button android:id="@+id/btnDaftar" android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:text="Daftar" android:layout_marginTop="16dp"/>
+</LinearLayout>
