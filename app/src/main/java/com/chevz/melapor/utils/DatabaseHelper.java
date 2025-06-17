@@ -6,29 +6,18 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.chevz.melapor.data.model.Laporan;
-import com.chevz.melapor.data.model.User;
-
 public class DatabaseHelper extends SQLiteOpenHelper {
-
-    private static final String DATABASE_NAME = "melapor.db";
+    
+    private static final String DATABASE_NAME = "MelaporApp.db";
     private static final int DATABASE_VERSION = 1;
-
-    // Table User
-    public static final String TABLE_USER = "users";
-    public static final String COL_ID = "id";
-    public static final String COL_USERNAME = "username";
-    public static final String COL_PASSWORD = "password";
-    public static final String COL_NAMA = "nama";
-    public static final String COL_LEVEL = "level";
-
-    // Table Laporan
-    public static final String TABLE_LAPORAN = "laporan";
-    public static final String COL_JABATAN = "jabatan";
-    public static final String COL_PERUSAHAAN = "perusahaan";
-    public static final String COL_JENIS = "jenis";
-    public static final String COL_KRONOLOGI = "kronologi";
-    public static final String COL_FILEURL = "fileUrl";
+    
+    // Table Users
+    private static final String TABLE_USERS = "users";
+    private static final String COL_ID = "id";
+    private static final String COL_USERNAME = "username";
+    private static final String COL_PASSWORD = "password";
+    private static final String COL_NAMA = "nama";
+    private static final String COL_LEVEL = "level";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -36,33 +25,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createUser = "CREATE TABLE " + TABLE_USER + " (" +
+        // Create users table
+        String createUsersTable = "CREATE TABLE " + TABLE_USERS + " (" +
                 COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COL_USERNAME + " TEXT, " +
-                COL_PASSWORD + " TEXT, " +
-                COL_NAMA + " TEXT, " +
-                COL_LEVEL + " TEXT)";
-        db.execSQL(createUser);
-
-        String createLaporan = "CREATE TABLE " + TABLE_LAPORAN + " (" +
-                COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COL_NAMA + " TEXT, " +
-                COL_JABATAN + " TEXT, " +
-                COL_PERUSAHAAN + " TEXT, " +
-                COL_JENIS + " TEXT, " +
-                COL_KRONOLOGI + " TEXT, " +
-                COL_FILEURL + " TEXT)";
-        db.execSQL(createLaporan);
+                COL_USERNAME + " TEXT UNIQUE NOT NULL, " +
+                COL_PASSWORD + " TEXT NOT NULL, " +
+                COL_NAMA + " TEXT NOT NULL, " +
+                COL_LEVEL + " TEXT DEFAULT 'User'" +
+                ")";
+        db.execSQL(createUsersTable);
+        
+        // Insert default admin user
+        ContentValues adminValues = new ContentValues();
+        adminValues.put(COL_USERNAME, "admin");
+        adminValues.put(COL_PASSWORD, "admin123");
+        adminValues.put(COL_NAMA, "Administrator");
+        adminValues.put(COL_LEVEL, "Admin");
+        db.insert(TABLE_USERS, null, adminValues);
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldV, int newV) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_LAPORAN);
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
         onCreate(db);
     }
 
-    // Register user
+    // Insert new user
     public boolean insertUser(String username, String password, String nama, String level) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -70,46 +58,39 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COL_PASSWORD, password);
         values.put(COL_NAMA, nama);
         values.put(COL_LEVEL, level);
-        long result = db.insert(TABLE_USER, null, values);
+
+        long result = db.insert(TABLE_USERS, null, values);
+        db.close();
         return result != -1;
     }
 
-    // Login check
-    public boolean checkLogin(String username, String password) {
+    // Check user credentials
+    public boolean checkUser(String username, String password) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_USER, null,
+        Cursor cursor = db.query(TABLE_USERS,
+                new String[]{COL_ID},
                 COL_USERNAME + "=? AND " + COL_PASSWORD + "=?",
-                new String[]{username, password}, null, null, null);
-        boolean exists = (cursor != null && cursor.moveToFirst());
-        if (cursor != null) cursor.close();
+                new String[]{username, password},
+                null, null, null);
+
+        boolean exists = cursor.getCount() > 0;
+        cursor.close();
+        db.close();
         return exists;
     }
 
-    // Ambil nama berdasarkan username
-    public String getNamaByUsername(String username) {
+    // Check if username exists
+    public boolean checkUsername(String username) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_USER, new String[]{COL_NAMA},
-                COL_USERNAME + "=?", new String[]{username}, null, null, null);
-        if (cursor != null && cursor.moveToFirst()) {
-            String result = cursor.getString(0);
-            cursor.close();
-            return result;
-        }
-        if (cursor != null) cursor.close();
-        return "-";
-    }
+        Cursor cursor = db.query(TABLE_USERS,
+                new String[]{COL_ID},
+                COL_USERNAME + "=?",
+                new String[]{username},
+                null, null, null);
 
-    // Simpan laporan
-    public boolean insertLaporan(Laporan laporan) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(COL_NAMA, laporan.getNama());
-        values.put(COL_JABATAN, laporan.getJabatan());
-        values.put(COL_PERUSAHAAN, laporan.getPerusahaan());
-        values.put(COL_JENIS, laporan.getJenis());
-        values.put(COL_KRONOLOGI, laporan.getKronologi());
-        values.put(COL_FILEURL, laporan.getFileUrl());
-        long result = db.insert(TABLE_LAPORAN, null, values);
-        return result != -1;
+        boolean exists = cursor.getCount() > 0;
+        cursor.close();
+        db.close();
+        return exists;
     }
 }
