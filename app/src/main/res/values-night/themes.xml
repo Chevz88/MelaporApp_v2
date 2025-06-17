@@ -1,13 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="Theme.MelaporApp" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/primaryColor</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <item name="colorBackground">#121212</item>
-        <item name="colorOnBackground">@color/white</item>
-        <item name="colorSurface">#1E1E1E</item>
-        <item name="colorOnSurface">@color/white</item>
-        <item name="colorSecondary">@color/accentRed</item>
-        <item name="colorOnSecondary">@color/white</item>
+<resources>
+    <!-- Base application theme for Dark Mode -->
+    <style name="Theme.MelaporApp" parent="Theme.AppCompat">
+        <!-- Primary brand color -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        
+        <!-- Background colors -->
+        <item name="android:windowBackground">@color/colorBackground</item>
+        <item name="colorSurface">@color/colorSurface</item>
+        
+        <!-- Text colors -->
+        <item name="colorOnPrimary">@color/colorOnPrimary</item>
+        <item name="colorOnBackground">@color/colorOnBackground</item>
+        <item name="colorOnSurface">@color/colorOnSurface</item>
+        
+        <!-- Status bar -->
+        <item name="android:statusBarColor">@color/colorBackground</item>
+        <item name="android:windowLightStatusBar">false</item>
+        
+        <!-- Navigation bar -->
+        <item name="android:navigationBarColor">@color/colorBackground</item>
+    </style>
+    
+    <!-- Theme for AppCompat Dark -->
+    <style name="Theme.AppCompat.Light.NoActionBar" parent="Theme.AppCompat">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/colorBackground</item>
+    </style>
+    
+    <!-- Button Styles for Dark Theme -->
+    <style name="AppButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">@color/colorOnPrimary</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:padding">12dp</item>
+    </style>
+    
+    <!-- Text Styles for Dark Theme -->
+    <style name="AppTextStyle">
+        <item name="android:textColor">@color/colorOnBackground</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    
+    <style name="AppTextStyle.Title">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorOnBackground</item>
+    </style>
+    
+    <style name="AppTextStyle.Subtitle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/colorOnSurface</item>
     </style>
 </resources>
