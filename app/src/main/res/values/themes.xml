@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Tema Utama Aplikasi -->
+    <!-- Aplikasi Theme -->
     <style name="Theme.MelaporApp" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Warna Brand -->
+        <!-- Warna Utama -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
-        <!-- Warna Background dan Permukaan -->
+        <!-- Warna Background & Permukaan -->
         <item name="android:windowBackground">@color/colorBackground</item>
         <item name="colorSurface">@color/colorSurface</item>
         <item name="android:colorBackground">@color/colorBackground</item>
@@ -23,13 +23,13 @@
         <item name="android:statusBarColor">@color/colorPrimaryDark</item>
         <item name="android:windowLightStatusBar">false</item>
 
-        <!-- Default Komponen -->
+        <!-- Komponen -->
         <item name="buttonStyle">@style/AppButtonStyle</item>
         <item name="textViewStyle">@style/AppTextStyle</item>
         <item name="editTextStyle">@style/AppEditTextStyle</item>
     </style>
 
-    <!-- Gaya Tombol -->
+    <!-- Gaya Button -->
     <style name="AppButtonStyle" parent="Widget.AppCompat.Button">
         <item name="android:backgroundTint">@color/colorPrimary</item>
         <item name="android:textColor">@color/white</item>
@@ -40,27 +40,27 @@
 
     <!-- Gaya EditText -->
     <style name="AppEditTextStyle" parent="Widget.AppCompat.EditText">
-        <item name="android:background">@drawable/bg_input</item> <!-- atau warna solid jika belum ada -->
+        <item name="android:background">@drawable/bg_input</item>
         <item name="android:textColor">@color/inputText</item>
         <item name="android:padding">12dp</item>
         <item name="android:textSize">14sp</item>
     </style>
 
-    <!-- Gaya TextView Default -->
-    <style name="AppTextStyle" parent="Widget.AppCompat.TextView">
+    <!-- Teks Umum -->
+    <style name="AppTextStyle" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/colorOnBackground</item>
         <item name="android:textSize">14sp</item>
     </style>
 
     <!-- Teks Judul -->
-    <style name="AppTextStyle.Title" parent="TextAppearance.AppCompat.Large">
+    <style name="AppTextStyle.Title">
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/black</item>
     </style>
 
     <!-- Teks Subjudul -->
-    <style name="AppTextStyle.Subtitle" parent="TextAppearance.AppCompat.Medium">
+    <style name="AppTextStyle.Subtitle">
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">@color/gray_dark</item>
