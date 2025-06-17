@@ -2,68 +2,92 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:padding="24dp"
+    android:background="#FFFFFF">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
+        android:orientation="vertical">
 
+        <!-- Nama user login -->
+        <TextView
+            android:id="@+id/textNamaUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Login sebagai: -"
+            android:textStyle="bold"
+            android:textColor="#333333"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Input Nama -->
         <EditText
             android:id="@+id/editNama"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nama Pelapor"
-            android:inputType="textPersonName" />
+            android:hint="Nama Pelapor" />
 
+        <!-- Input Jabatan -->
         <EditText
             android:id="@+id/editJabatan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Jabatan"
-            android:inputType="text" />
+            android:layout_marginTop="12dp" />
 
+        <!-- Input Perusahaan -->
         <EditText
             android:id="@+id/editPerusahaan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Perusahaan"
-            android:inputType="text" />
+            android:hint="Nama Perusahaan"
+            android:layout_marginTop="12dp" />
 
+        <!-- Spinner Jenis -->
         <Spinner
             android:id="@+id/spinnerJenis"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/jenis_pengaduan" />
+            android:layout_marginTop="12dp" />
 
+        <!-- Kronologi -->
         <EditText
             android:id="@+id/editKronologi"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:hint="Kronologi Singkat"
-            android:gravity="top"
+            android:layout_height="120dp"
+            android:hint="Kronologi"
+            android:gravity="top|start"
+            android:layout_marginTop="12dp"
+            android:background="@android:drawable/edit_text"
+            android:padding="8dp"
             android:inputType="textMultiLine" />
 
+        <!-- Tombol pilih file -->
         <Button
             android:id="@+id/btnPilihFile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Pilih Foto / Bukti" />
+            android:text="PILIH FOTO / BUKTI"
+            android:layout_marginTop="16dp" />
 
+        <!-- Teks file yang dipilih -->
         <TextView
             android:id="@+id/textFileDipilih"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Belum ada file dipilih"
+            android:text="File dipilih: -"
+            android:textColor="#666666"
             android:textSize="14sp"
-            android:paddingTop="8dp" />
+            android:layout_marginTop="8dp" />
 
+        <!-- Tombol kirim -->
         <Button
             android:id="@+id/btnKirim"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Kirim Laporan"
-            android:layout_marginTop="16dp" />
+            android:text="KIRIM LAPORAN"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="#1976D2"
+            android:textColor="#FFFFFF" />
     </LinearLayout>
 </ScrollView>
