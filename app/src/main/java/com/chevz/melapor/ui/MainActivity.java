@@ -1,11 +1,10 @@
 package com.chevz.melapor.ui;
 
 import android.app.Activity;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.*;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
+import android.widget.*;
 import com.chevz.melapor.R;
 
 public class MainActivity extends Activity {
@@ -36,7 +35,7 @@ public class MainActivity extends Activity {
             startActivityForResult(intent, 100);
         });
 
-        // Aksi kirim laporan (belum ada backend, hanya dummy)
+        // Aksi kirim laporan (dummy, integrasi backend bisa ditambahkan nanti)
         btnKirim.setOnClickListener(v -> {
             String nama = editNama.getText().toString();
             String jabatan = editJabatan.getText().toString();
@@ -44,18 +43,15 @@ public class MainActivity extends Activity {
             String kronologi = editKronologi.getText().toString();
             String jenis = spinnerJenis.getSelectedItem().toString();
 
-            // Validasi sederhana
             if (nama.isEmpty() || jabatan.isEmpty() || perusahaan.isEmpty() || kronologi.isEmpty()) {
                 Toast.makeText(this, "Mohon lengkapi semua data", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            // Kirim data (dummy)
             Toast.makeText(this, "Laporan dikirim:\n" + nama + " - " + jenis, Toast.LENGTH_LONG).show();
         });
     }
 
-    // Terima hasil pilih file
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
