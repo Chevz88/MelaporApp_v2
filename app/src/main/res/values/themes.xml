@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Aplikasi Theme -->
+    <!-- Tema Aplikasi -->
     <style name="Theme.MelaporApp" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Warna Utama -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
-        <!-- Warna Background & Permukaan -->
+        <!-- Warna Latar & Permukaan -->
         <item name="android:windowBackground">@color/colorBackground</item>
-        <item name="colorSurface">@color/colorSurface</item>
         <item name="android:colorBackground">@color/colorBackground</item>
+        <item name="colorSurface">@color/colorSurface</item>
 
         <!-- Warna Teks -->
-        <item name="android:textColor">@color/colorOnBackground</item>
         <item name="colorOnPrimary">@color/colorOnPrimary</item>
         <item name="colorOnBackground">@color/colorOnBackground</item>
         <item name="colorOnSurface">@color/colorOnSurface</item>
@@ -23,10 +22,10 @@
         <item name="android:statusBarColor">@color/colorPrimaryDark</item>
         <item name="android:windowLightStatusBar">false</item>
 
-        <!-- Komponen -->
+        <!-- Komponen Gaya -->
         <item name="buttonStyle">@style/AppButtonStyle</item>
-        <item name="textViewStyle">@style/AppTextStyle</item>
         <item name="editTextStyle">@style/AppEditTextStyle</item>
+        <item name="textViewStyle">@style/AppTextViewStyle</item>
     </style>
 
     <!-- Gaya Button -->
@@ -46,20 +45,20 @@
         <item name="android:textSize">14sp</item>
     </style>
 
-    <!-- Teks Umum -->
-    <style name="AppTextStyle" parent="TextAppearance.AppCompat">
+    <!-- Gaya TextView (Wajib untuk textViewStyle) -->
+    <style name="AppTextViewStyle" parent="Widget.AppCompat.TextView">
         <item name="android:textColor">@color/colorOnBackground</item>
         <item name="android:textSize">14sp</item>
     </style>
 
-    <!-- Teks Judul -->
+    <!-- Gaya Teks Judul -->
     <style name="AppTextStyle.Title">
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/black</item>
     </style>
 
-    <!-- Teks Subjudul -->
+    <!-- Gaya Teks Subjudul -->
     <style name="AppTextStyle.Subtitle">
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">normal</item>
