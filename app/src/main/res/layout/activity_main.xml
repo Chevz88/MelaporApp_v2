@@ -12,7 +12,7 @@
 
         <!-- Nama user login -->
         <TextView
-            android:id="@+id/textNamaUser"
+            android:id="@+id/textWelcome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Login sebagai: -"
