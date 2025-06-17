@@ -25,7 +25,7 @@
 
         <!-- Komponen -->
         <item name="buttonStyle">@style/AppButtonStyle</item>
-        <item name="textViewStyle">@style/AppTextStyle.Base</item>
+        <item name="textViewStyle">@style/AppTextStyle</item>
         <item name="editTextStyle">@style/AppEditTextStyle</item>
     </style>
 
@@ -46,13 +46,13 @@
         <item name="android:textSize">14sp</item>
     </style>
 
-    <!-- Base Text Style (untuk textViewStyle fix) -->
-    <style name="AppTextStyle.Base" parent="TextAppearance.AppCompat">
+    <!-- Gaya Teks Umum (default untuk textViewStyle) -->
+    <style name="AppTextStyle" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/colorOnBackground</item>
         <item name="android:textSize">14sp</item>
     </style>
 
-    <!-- Untuk manual penggunaan, bukan default style -->
+    <!-- Gaya Teks Manual -->
     <style name="AppTextStyle.Title">
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
