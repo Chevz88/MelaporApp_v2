@@ -8,6 +8,10 @@ public class Laporan {
     private String kronologi;
     private String fileUrl;
 
+    // Constructor kosong
+    public Laporan() {
+    }
+
     // Constructor lengkap
     public Laporan(String nama, String jabatan, String perusahaan, String jenis, String kronologi, String fileUrl) {
         this.nama = nama;
@@ -18,7 +22,7 @@ public class Laporan {
         this.fileUrl = fileUrl;
     }
 
-    // Getter
+    // Getters
     public String getNama() {
         return nama;
     }
@@ -43,7 +47,7 @@ public class Laporan {
         return fileUrl;
     }
 
-    // Setter
+    // Setters
     public void setNama(String nama) {
         this.nama = nama;
     }
