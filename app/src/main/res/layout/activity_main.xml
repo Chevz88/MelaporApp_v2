@@ -1,70 +1,64 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp">
+package com.chevz.melapor.ui;
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
+import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.widget.*;
+import com.chevz.melapor.R;
 
-        <EditText
-            android:id="@+id/editNama"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Nama Pelapor"
-            android:inputType="textPersonName" />
+public class MainActivity extends Activity {
 
-        <EditText
-            android:id="@+id/editJabatan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Jabatan"
-            android:inputType="text" />
+    private EditText editNama, editJabatan, editPerusahaan, editKronologi;
+    private Spinner spinnerJenis;
+    private TextView textFileDipilih;
+    private Uri selectedFileUri;
 
-        <EditText
-            android:id="@+id/editPerusahaan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Perusahaan"
-            android:inputType="text" />
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-        <Spinner
-            android:id="@+id/spinnerJenis"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:entries="@array/jenis_pengaduan" />
+        editNama = findViewById(R.id.editNama);
+        editJabatan = findViewById(R.id.editJabatan);
+        editPerusahaan = findViewById(R.id.editPerusahaan);
+        editKronologi = findViewById(R.id.editKronologi);
+        spinnerJenis = findViewById(R.id.spinnerJenis);
+        textFileDipilih = findViewById(R.id.textFileDipilih);
+        Button btnPilihFile = findViewById(R.id.btnPilihFile);
+        Button btnKirim = findViewById(R.id.btnKirim);
 
-        <EditText
-            android:id="@+id/editKronologi"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:hint="Kronologi Singkat"
-            android:gravity="top"
-            android:inputType="textMultiLine"
-            android:background="@android:drawable/edit_text" />
+        // Aksi pilih file
+        btnPilihFile.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("*/*");
+            startActivityForResult(intent, 100);
+        });
 
-        <Button
-            android:id="@+id/btnPilihFile"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Pilih Foto / Bukti" />
+        // Aksi kirim laporan (dummy, integrasi backend bisa ditambahkan nanti)
+        btnKirim.setOnClickListener(v -> {
+            String nama = editNama.getText().toString();
+            String jabatan = editJabatan.getText().toString();
+            String perusahaan = editPerusahaan.getText().toString();
+            String kronologi = editKronologi.getText().toString();
+            String jenis = spinnerJenis.getSelectedItem().toString();
 
-        <TextView
-            android:id="@+id/textFileDipilih"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Belum ada file dipilih"
-            android:textSize="14sp"
-            android:paddingTop="8dp" />
+            if (nama.isEmpty() || jabatan.isEmpty() || perusahaan.isEmpty() || kronologi.isEmpty()) {
+                Toast.makeText(this, "Mohon lengkapi semua data", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-        <Button
-            android:id="@+id/btnKirim"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Kirim Laporan"
-            android:layout_marginTop="16dp" />
-    </LinearLayout>
-</ScrollView>
+            Toast.makeText(this, "Laporan dikirim:\n" + nama + " - " + jenis, Toast.LENGTH_LONG).show();
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 100 && resultCode == RESULT_OK && data != null) {
+            selectedFileUri = data.getData();
+            String fileName = selectedFileUri.getLastPathSegment();
+            textFileDipilih.setText("File dipilih: " + fileName);
+        }
+    }
+}
