@@ -5,48 +5,51 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.*;
 import com.chevz.melapor.R;
-import com.chevz.melapor.data.network.ApiService;
-import org.json.JSONObject;
+import com.chevz.melapor.utils.DatabaseHelper;
 
 public class RegisterActivity extends Activity {
+
+    private EditText editUsername, editPassword, editNama;
+    private Button btnDaftar;
+    private TextView textToLogin;
+    private DatabaseHelper dbHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        EditText username = findViewById(R.id.editUsername);
-        EditText password = findViewById(R.id.editPassword);
-        EditText nama = findViewById(R.id.editNama);
-        Button btnDaftar = findViewById(R.id.btnDaftar);
-        TextView toLogin = findViewById(R.id.textToLogin);
+        dbHelper = new DatabaseHelper(this);
+
+        editUsername = findViewById(R.id.editUsername);
+        editPassword = findViewById(R.id.editPassword);
+        editNama = findViewById(R.id.editNama);
+        btnDaftar = findViewById(R.id.btnDaftar);
+        textToLogin = findViewById(R.id.textToLogin);
 
         btnDaftar.setOnClickListener(v -> {
-            try {
-                JSONObject data = new JSONObject();
-                data.put("username", username.getText().toString());
-                data.put("password", password.getText().toString());
-                data.put("nama", nama.getText().toString());
-                data.put("level", "User");
+            String username = editUsername.getText().toString().trim();
+            String password = editPassword.getText().toString().trim();
+            String nama = editNama.getText().toString().trim();
 
-                ApiService.postData("register", data, new ApiService.ApiCallback() {
-                    @Override
-                    public void onSuccess(String response) {
-                        Toast.makeText(RegisterActivity.this, "Berhasil daftar", Toast.LENGTH_SHORT).show();
-                        finish();
-                    }
-                    
-                    @Override
-                    public void onError(String error) {
-                        Toast.makeText(RegisterActivity.this, error, Toast.LENGTH_LONG).show();
-                    }
-                });
-            } catch (Exception e) {
-                e.printStackTrace();
+            if (username.isEmpty() || password.isEmpty() || nama.isEmpty()) {
+                Toast.makeText(this, "Harap lengkapi semua data", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Simpan user ke SQLite
+            boolean isInserted = dbHelper.insertUser(username, password, nama, "User");
+
+            if (isInserted) {
+                Toast.makeText(this, "Registrasi berhasil", Toast.LENGTH_SHORT).show();
+                finish(); // kembali ke Login
+            } else {
+                Toast.makeText(this, "Gagal mendaftar (mungkin username sudah digunakan)", Toast.LENGTH_SHORT).show();
             }
         });
 
         // Aksi pindah ke halaman login
-        toLogin.setOnClickListener(v -> {
+        textToLogin.setOnClickListener(v -> {
             startActivity(new Intent(this, LoginActivity.class));
             finish();
         });
