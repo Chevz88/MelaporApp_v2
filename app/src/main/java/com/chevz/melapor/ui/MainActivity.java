@@ -2,13 +2,13 @@ package com.chevz.melapor.ui;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.*;
-
 import com.chevz.melapor.R;
-import com.chevz.melapor.model.Laporan;
-import com.chevz.melapor.utils.DatabaseHelper;
+import com.chevz.melapor.data.local.DatabaseHelper;
+import com.chevz.melapor.data.model.Laporan;
 
 public class MainActivity extends Activity {
 
@@ -17,21 +17,22 @@ public class MainActivity extends Activity {
     private TextView textFileDipilih, textNamaUser;
     private Uri selectedFileUri;
     private DatabaseHelper dbHelper;
-    private String loggedInUser = "-";
+    private String namaUserLogin = "-";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        dbHelper = new DatabaseHelper(this);
 
-        // Ambil data user dari intent
-        if (getIntent() != null && getIntent().hasExtra("nama")) {
-            loggedInUser = getIntent().getStringExtra("nama");
+        // Ambil nama user dari login
+        if (getIntent().hasExtra("nama")) {
+            namaUserLogin = getIntent().getStringExtra("nama");
         }
 
-        // Inisialisasi view
         textNamaUser = findViewById(R.id.textNamaUser);
+        textNamaUser.setText("Login sebagai: " + namaUserLogin);
+
+        // Inisialisasi UI
         editNama = findViewById(R.id.editNama);
         editJabatan = findViewById(R.id.editJabatan);
         editPerusahaan = findViewById(R.id.editPerusahaan);
@@ -41,46 +42,45 @@ public class MainActivity extends Activity {
         Button btnPilihFile = findViewById(R.id.btnPilihFile);
         Button btnKirim = findViewById(R.id.btnKirim);
 
-        textNamaUser.setText("Login sebagai: " + loggedInUser);
+        // Init DB
+        dbHelper = new DatabaseHelper(this);
 
+        // Aksi pilih file
         btnPilihFile.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
             intent.setType("*/*");
             startActivityForResult(intent, 100);
         });
 
+        // Aksi kirim
         btnKirim.setOnClickListener(v -> {
-            String nama = editNama.getText().toString();
-            String jabatan = editJabatan.getText().toString();
-            String perusahaan = editPerusahaan.getText().toString();
-            String kronologi = editKronologi.getText().toString();
+            String nama = editNama.getText().toString().trim();
+            String jabatan = editJabatan.getText().toString().trim();
+            String perusahaan = editPerusahaan.getText().toString().trim();
+            String kronologi = editKronologi.getText().toString().trim();
             String jenis = spinnerJenis.getSelectedItem().toString();
-            String filePath = selectedFileUri != null ? selectedFileUri.toString() : "";
+            String filePath = (selectedFileUri != null) ? selectedFileUri.toString() : "-";
 
             if (nama.isEmpty() || jabatan.isEmpty() || perusahaan.isEmpty() || kronologi.isEmpty()) {
-                Toast.makeText(this, "Mohon lengkapi semua data", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Lengkapi semua data", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            Laporan laporan = new Laporan(nama, jabatan, perusahaan, jenis, kronologi, filePath, loggedInUser);
-            long result = dbHelper.insertLaporan(laporan);
-            if (result > 0) {
-                Toast.makeText(this, "Laporan berhasil disimpan", Toast.LENGTH_SHORT).show();
-                clearForm();
-            } else {
-                Toast.makeText(this, "Gagal menyimpan laporan", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
+            // Simpan ke database SQLite
+            SQLiteDatabase db = dbHelper.getWritableDatabase();
+            db.execSQL("INSERT INTO laporan (nama, jabatan, perusahaan, jenis, kronologi, fileUrl) VALUES (?, ?, ?, ?, ?, ?)",
+                    new Object[]{nama, jabatan, perusahaan, jenis, kronologi, filePath});
 
-    private void clearForm() {
-        editNama.setText("");
-        editJabatan.setText("");
-        editPerusahaan.setText("");
-        editKronologi.setText("");
-        spinnerJenis.setSelection(0);
-        textFileDipilih.setText("File dipilih: -");
-        selectedFileUri = null;
+            Toast.makeText(this, "Laporan berhasil disimpan", Toast.LENGTH_LONG).show();
+
+            // Reset form
+            editNama.setText("");
+            editJabatan.setText("");
+            editPerusahaan.setText("");
+            editKronologi.setText("");
+            textFileDipilih.setText("File dipilih: -");
+            spinnerJenis.setSelection(0);
+        });
     }
 
     @Override
