@@ -1,11 +1,9 @@
 package com.chevz.melapor.ui;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.*;
-
 import com.chevz.melapor.R;
 import com.chevz.melapor.data.model.Laporan;
 import com.chevz.melapor.utils.DatabaseHelper;
