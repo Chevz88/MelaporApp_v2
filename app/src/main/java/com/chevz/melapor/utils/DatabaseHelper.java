@@ -20,6 +20,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COL_USERNAME = "username";
     public static final String COL_PASSWORD = "password";
     public static final String COL_NAMA = "nama";
+    public static final String COL_LEVEL = "level";
 
     // Table Laporan
     public static final String TABLE_LAPORAN = "laporan";
@@ -39,7 +40,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COL_USERNAME + " TEXT, " +
                 COL_PASSWORD + " TEXT, " +
-                COL_NAMA + " TEXT)";
+                COL_NAMA + " TEXT, " +
+                COL_LEVEL + " TEXT)";
         db.execSQL(createUser);
 
         String createLaporan = "CREATE TABLE " + TABLE_LAPORAN + " (" +
@@ -67,6 +69,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COL_USERNAME, username);
         values.put(COL_PASSWORD, password);
         values.put(COL_NAMA, nama);
+        values.put(COL_LEVEL, level);
         long result = db.insert(TABLE_USER, null, values);
         return result != -1;
     }
@@ -77,7 +80,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = db.query(TABLE_USER, null,
                 COL_USERNAME + "=? AND " + COL_PASSWORD + "=?",
                 new String[]{username, password}, null, null, null);
-        return cursor != null && cursor.moveToFirst();
+        boolean exists = (cursor != null && cursor.moveToFirst());
+        if (cursor != null) cursor.close();
+        return exists;
     }
 
     // Ambil nama berdasarkan username
@@ -86,8 +91,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = db.query(TABLE_USER, new String[]{COL_NAMA},
                 COL_USERNAME + "=?", new String[]{username}, null, null, null);
         if (cursor != null && cursor.moveToFirst()) {
-            return cursor.getString(0);
+            String result = cursor.getString(0);
+            cursor.close();
+            return result;
         }
+        if (cursor != null) cursor.close();
         return "-";
     }
 
@@ -104,4 +112,4 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         long result = db.insert(TABLE_LAPORAN, null, values);
         return result != -1;
     }
-                                 }
+}
